@@ -1,20 +1,20 @@
- # bartificer.linkToolkit.js
+# bartificer.linkToolkit.js
 
 A collection of utility functions for manipulating links in HTML pages.
 
 Full documentation can be found at [https://bbusschots.github.io/bartificer_linkToolkit_js/](https://bbusschots.github.io/bartificer_linkToolkit_js/).
 
-# Requirements
+## Requirements
 
 Be sure to inlude the [jQuery](http://jquery.com) library into the HTML document before including `bartificer.linkToolkit.js`.
 
 Some functions also require that [URI.js](https://medialize.github.io/URI.js/) (including its optional jQuery plugin) be included in the HTML document.
 
-# Usage
+## Usage
 
 To use the library, first include jQuery, then `URI.js` with its optional jQuery addon, then `bartificer.linkToolkit.js` (which you'll find in the `lib` directory in this repository).
 
-## Example (all code within the `head` of the HTML document)
+### Example (all code within the `head` of the HTML document)
 
 ```
 <!-- Include jQuery and URI.js from CDNs -->
@@ -43,7 +43,7 @@ To use the library, first include jQuery, then `URI.js` with its optional jQuery
 </script>
 ```
 
-# Development
+## Development
 
 To edit the library yourself, download the repo, then change to the folder, and run the following command to install all the dev requirements:
 
