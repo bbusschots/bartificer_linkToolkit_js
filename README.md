@@ -2,6 +2,8 @@
 
 A collection of utility functions for manipulating links in HTML pages.
 
+Full documentation can be found at [https://bbusschots.github.io/bartificer_linkToolkit_js/](https://bbusschots.github.io/bartificer_linkToolkit_js/).
+
 # Requirements
 
 Be sure to inlude the [jQuery](http://jquery.com) library into the HTML document before including `bartificer.linkToolkit.js`.
