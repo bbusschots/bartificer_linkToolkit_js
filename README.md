@@ -31,11 +31,11 @@ To use the library, first include jQuery, then `URI.js` with its optional jQuery
   	// add a rel of noopener to all links with a target of _blank in the entire document
   	bartificer.linkToolkit.noopenerFix();
   	
-  	// externalise all links that leave the site within a given set of container
+  	// externalise all links that leave the site within a given container, explicitly
+  	// ignoring links to certain domains
   	bartificer.linkToolkit.autoExternalise(
   	  $('#main_content'),
   	  {
-  	  	subDomainsLocal: true,
   	  	ignoreDomains: ['bartb.ie', 'www.bartb.ie']
   	  }
   	);
