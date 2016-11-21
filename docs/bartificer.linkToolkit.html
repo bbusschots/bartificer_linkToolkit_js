@@ -1,0 +1,3042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>linkToolkit - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="bartificer.linkToolkit.html">linkToolkit</a><ul class='methods'><li data-type='method'><a href="bartificer.linkToolkit.html#.autoExternalise">autoExternalise</a></li><li data-type='method'><a href="bartificer.linkToolkit.html#.autoExternalize">autoExternalize</a></li><li data-type='method'><a href="bartificer.linkToolkit.html#.debug">debug</a></li><li data-type='method'><a href="bartificer.linkToolkit.html#.externalise">externalise</a></li><li data-type='method'><a href="bartificer.linkToolkit.html#.externalize">externalize</a></li><li data-type='method'><a href="bartificer.linkToolkit.html#.isLocalUrl">isLocalUrl</a></li><li data-type='method'><a href="bartificer.linkToolkit.html#.markExternal">markExternal</a></li><li data-type='method'><a href="bartificer.linkToolkit.html#.noopenerFix">noopenerFix</a></li></ul></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">linkToolkit</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        linkToolkit
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>A colleciton of functions for sanitising links in HTML pages. The functions in this API depend on jQuery.
+Some functions also depend on URI.js (including its optional jQuery extension). jQuery must be loaded 
+into the document before <code>bartificer.linkToolkit.js</code>.</p>
+<p>All the functions in this API alter selective link tags in some way. All functions will ignore links
+with the CSS class <code>bartificer-ignore</code>.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+        <h3 class="subsection-title">Requires</h3>
+
+        <ul>
+            <li>module:jQuery</li>
+        </ul>
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".autoExternalise"><span class="type-signature">(static) </span>autoExternalise<span class="signature">($container<span class="signature-attributes">opt</span>, opts<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Scan through a document, or a subset of a document, and call <code>bartificer.linkToolkit.externalise()</code>
+on each link that is not considered local to the site.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>$container</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#jQueryObject">jQueryObject</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(document)
+                
+                </td>
+            
+
+            <td class="description last"><p>Where to search for the links. The entire document is searched by default.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#PlainObject">PlainObject</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Specify configuration options.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>addIcon</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>If <code>true</code>, the icon image will be added after all altered links.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>linkClasses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last"><p>Additional classes to add to all altered links.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subDomainsLocal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Whether or not subdomains of the current domain should
+    be considered local.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ignoreDomains</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    []
+                
+                </td>
+            
+
+            <td class="description last"><p>Links to domains in this array will be ignored.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconSrc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The value to use for the icon image's <code>src</code> attribute. By default, a data attribute is used.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconExternal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>If <code>true</code>, the icon image will be added after the link (with jQuery's <code>.after()</code>
+    function), otherwise, it will be added to the end of the link (with jQuery's <code>.append()</code> function).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconClasses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last"><p>Additional classes to add to the icon image as a singel space-separated string.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>altText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'External Link Icon'
+                
+                </td>
+            
+
+            <td class="description last"><p>The alternative text for the icons.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>titleText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'Link Opens in New Window/Tab'
+                
+                </td>
+            
+
+            <td class="description last"><p>The title text for the icons.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="bartificer.linkToolkit.html#.externalise">bartificer.linkToolkit.externalise</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+<h5>Requires:</h5>
+<ul>
+    <li>module:URI</li>
+</ul>
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+<ul>
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>An error is thrown if the first argument is present, but not a jQuery object.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">TypeError</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>An error is thrown if the second argument is present, but not a plain object.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">TypeError</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>Throws an exception if <code>URI.js</code> is not loaded.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    </ul>
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The number of links altered.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// externalise all links in the enture document that lead outside the site
+bartificer.linkToolkit.autoExternalise();
+
+// externalise all links within a given container, using a custom icon, and skipping links
+// to a list of specified domains
+bartificer.linkToolkit.autoExternalise(
+  $('#main_content'),
+  {
+    iconSrc: 'externalIcon.png',
+    ignoreDomains: ['bartbusschots.ie', 'www.bartbusschots.ie']
+  }
+);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".autoExternalize"><span class="type-signature">(static) </span>autoExternalize<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>An alias for <a href="bartificer.linkToolkit.html#.autoExternalise">bartificer.linkToolkit.autoExternalise</a>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="bartificer.linkToolkit.html#.autoExternalise">bartificer.linkToolkit.autoExternalise</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".debug"><span class="type-signature">(static) </span>debug<span class="signature">(doDebug<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Get or set the debug status. When debug mode is enabled, messages will be logged to the web/JavaScript
+console with <code>console.trace()</code>. Since Versions of IE before 11 don't support <code>console.trace</code>, don't
+enable debug mode on a live site.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>doDebug</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>If this parameter is passed, the debug mode will be set accordingly.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p><code>true</code> is debug mode is enabled, <code>false</code> otherwise.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// get the debug status
+if(bartificer.linkToolkit.debug()){
+  window.alert('debug mode ENABLED');
+}else{
+  window.alert('debug mode DISABLED');
+}
+
+// enable debug mode
+bartificer.linkToolkit.debug(true);
+
+// disable debug mode
+bartificer.linkToolkit.debug(false);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".externalise"><span class="type-signature">(static) </span>externalise<span class="signature">($links<span class="signature-attributes">opt</span>, opts<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Make links external by setting their <code>target</code> to <code>_blank</code>, adding <code>noopener</code> to their <code>rel</code>
+attribute, and optionally appending an icon.</p>
+<p>Each element represented by <code>$links</code> will be checked to see if it is a link. By default, anything
+that is not a link will be skipped, however, by setting the option <code>opts.searchContainers</code> to <code>true</code>,
+all elements that are not links will be searched for containing links, and those links externalised.</p>
+<p>Any icon can be added, but by default, an icon from the <em>Fugue Icons</em> icon set by 
+<a href="http://p.yusukekamiyamane.com">Yusuke Kamiyamane</a>, which is licensed as 
+(Creative Commons Attribution 3.0)[http://creativecommons.org/licenses/by/3.0/] is used.</p>
+<p>When looking inside a container, the function will skip any links that have any of the CSS classes 
+<code>bartificer-ignore</code>, <code>bartificer-externalize-ignore</code>, or <code>bartificer-externalise-ignore</code>. Links
+specified directly will not be ignored based on their CSS classes.</p>
+<p>Altered links will have the CSS class <code>bartificer-externalLink</code> added, and if icons are added,
+they will also have the CSS class <code>bartificer-externalLink</code>.</p>
+<p>Any links which already have a class of <code>bartificer-externalLink</code> will be skipped on the assumption
+that they have already been externalised previously.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>$links</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#jQueryObject">jQueryObject</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $()
+                
+                </td>
+            
+
+            <td class="description last"><p>The links to alter. If a jQuery object is passed that does not
+    represent any links, including a completely empty jQuery object, the function will silently do
+    nothing.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#PlainObject">PlainObject</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Specify configuration options.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>searchContainers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Whether or not to look inside non-link elements in
+    <code>$links</code> for links.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>addIcon</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>If <code>true</code>, the icon image will be added after all altered links.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>linkClasses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last"><p>Additional classes to add to all altered links.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconSrc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The value to use for the icon image's <code>src</code> attribute. By default, a data attribute is used.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconExternal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>If <code>true</code>, the icon image will be added after the link (with jQuery's <code>.after()</code>
+    function), otherwise, it will be added to the end of the link (with jQuery's <code>.append()</code> function).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconClasses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last"><p>Additional classes to add to the icon image as a singel space-separated string.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>altText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'External Link Icon'
+                
+                </td>
+            
+
+            <td class="description last"><p>The alternative text for the icons.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>titleText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'Link Opens in New Window/Tab'
+                
+                </td>
+            
+
+            <td class="description last"><p>The title text for the icons.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+<ul>
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>An error is thrown if the first argument is not a jQuery object.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">TypeError</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>An error is thrown if the second argument is present, but not a plain object.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">TypeError</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    </ul>
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The number of links altered.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// externalise all links in the entire document using the default icon
+bartificer.linkToolkit.externalise($('a'));
+
+// externalise all links within a given container using a custom icon
+bartificer.linkToolkit.externalise(
+  $('a', $('#main_content')),
+  { iconSrc: 'externalIcon.png' }
+);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".externalize"><span class="type-signature">(static) </span>externalize<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>An alias for <a href="bartificer.linkToolkit.html#.externalise">bartificer.linkToolkit.externalise</a>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="bartificer.linkToolkit.html#.externalise">bartificer.linkToolkit.externalise</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isLocalUrl"><span class="type-signature">(static) </span>isLocalUrl<span class="signature">(url, opts<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>A function to test if a given URL is <em>local</em> to the current domain or not. All relative URLs are
+considered local, as are URLs with the same host component as the current page. URLs with host
+components that are subdomains of the host component of the current pages can optionally also be
+considered local.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The URL to test.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#PlainObject">PlainObject</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A plain object containing configuration information.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>subDomainsLocal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Whether or not subdomains of the current domain should
+    be considered local.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>localDomains</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    []
+                
+                </td>
+            
+
+            <td class="description last"><p>Links to domains in this array will be considered local.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+<h5>Requires:</h5>
+<ul>
+    <li>module:URI</li>
+</ul>
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>Throws an exception if <code>URI.js</code> is not loaded.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p><code>true</code> if the link is local, <code>false</code> otherwise. Values that are not strings or
+    numbers will always return <code>false</code>. The empty string is a relative URL to the current page, so it
+    will return <code>true</code>.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// test if a URL is local to the current website (default settings)
+var isLocal = bartificer.linkToolkit.isLocalUrl('http://www.bartb.ie/test');
+
+// test if a URL is local to the current site - subdomains exluded and alternative domain
+// explicitly marked as local
+var isLocal = bartificer.linkToolkit.isLocalUrl(
+  'http://www.bartb.ie/test',
+  {
+    subDomainsLocal: false,
+    localDomains: ['bartbusschots.ie', 'www.bartbusschots.ie']
+  }
+);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".markExternal"><span class="type-signature">(static) </span>markExternal<span class="signature">($container<span class="signature-attributes">opt</span>, opts<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Append an icon to the end of links with a <code>target</code> of <code>_blank</code>. A custom image can be specified, but by default
+an icon from the Fugue Icons icon set by <a href="http://p.yusukekamiyamane.com">Yusuke Kamiyamane</a>, which is licensed
+as (Creative Commons Attribution 3.0)[http://creativecommons.org/licenses/by/3.0/].</p>
+<p>The function will skip any links that have any of the CSS classes <code>bartificer-ignore</code>, or 
+<code>bartificer-markExternal-ignore</code></p>
+<p>The generated icons will have the CSS class <code>bartificer-externalLink</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>$container</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#jQueryObject">jQueryObject</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(document)
+                
+                </td>
+            
+
+            <td class="description last"><p>Where to search for the links.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#PlainObject">PlainObject</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Specify configuration options.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>iconSrc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The value to use for the icon image's <code>src</code> attribute. By default, a data attribute is used.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconExternal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>If <code>true</code>, the icon image will be added after the link (with jQuery's <code>.after()</code>
+    function), otherwise, it will be added to the end of the link (with jQuery's <code>.append()</code> function).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>iconClasses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ''
+                
+                </td>
+            
+
+            <td class="description last"><p>Additional classes to add to the icon image as a singel space-separated string.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>altText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'External Link Icon'
+                
+                </td>
+            
+
+            <td class="description last"><p>The alternative text for the icons.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>titleText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'Link Opens in New Window/Tab'
+                
+                </td>
+            
+
+            <td class="description last"><p>The title text for the icons.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The number of icons injected.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// add the default icon after all links within the enture document
+bartificer.linkToolkit.markExternal();
+
+// add the default icon after all links with a target of _blank within a given container
+bartificer.linkToolkit.markExternal($('#main_content'));
+
+// add a custom icon after all links with a target of _blank within a given container
+bartificer.linkToolkit.markExternal(
+  $('#main_content'),
+  { iconSrc: 'externalIcon.png'}
+);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".noopenerFix"><span class="type-signature">(static) </span>noopenerFix<span class="signature">($container<span class="signature-attributes">opt</span>, opts<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>To counter-act a known security vulnerability, it's good practice to set the <code>rel</code> attribute of all
+links that have a <code>target</code> of <code>_blank</code> to <code>noopener</code>. By default, when a new window/tab is opened by
+a web page, the web page that loads into that newly created window/tab will contain a JavaScript object
+named <code>opener</code> that points back to the window/tab that created it. While JavaScript's cross-domain rules
+prevent this object from doing many things, they do not prevent the objet from doing everything, so
+a page opened by clicking on a link with a <code>target</code> of <code>_blank</code> can do some neferious things, including
+altering the URL in the opening window. This could facilitate a convincing phishing attack.</p>
+<p>This function scans the entire document, or a sub-set of the document, for links that have a <code>target</code> of
+<code>_blank</code>, and adds a <code>rel</code> of <code>noopener</code> to any that do not already have it. The HTML specification
+states that the rel attribute can have multiple space-separated values, so, this function will append
+<code>noopener</code> to any <code>rel</code> attributes that already exist, but do not contain the value <code>noopener</code>.</p>
+<p>The function will skip any links that have any of the CSS classes <code>bartificer-ignore</code>, or 
+<code>bartificer-noopener-ignore</code>.</p>
+<p>The function can also be fine-tuned to skip all <em>local</em> links and all links to a list of white-listed
+domains. Local links are those that are relative, or that go to the same domain as the current page.
+Sub domains of the current page's domain can also optionally be considered local.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>$container</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#jQueryObject">jQueryObject</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    $(document)
+                
+                </td>
+            
+
+            <td class="description last"><p>A jQuery object to confine function's effect. If passed,
+    only links containined within the tags represented by the jQuery object will be examined and
+    potentially altered by the function.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#PlainObject">PlainObject</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>A plain object containing configuration information.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ignoreLocalLinks</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Whether or not to ignore <em>local</em> links.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subDomainsLocal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Whether or not subdomains of the current domain should
+    be considered local.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ignoreDomains</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    []
+                
+                </td>
+            
+
+            <td class="description last"><p>Links to domains in this array will be ignored.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>An error is thrown if the first argument is present, but not a jQuery object.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">TypeError</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The number of links that were altered.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// add rel=noopener to all links with a target of _blank that link to a URL outside the current
+// site througout the entire document with the default settings
+bartificer.linkToolkit.noopenerFix();
+
+// add rel=noopener to all links with a target of _blank that link to a URL outside the current
+// site but only within a given container
+bartificer.linkToolkit.noopenerFix($('#main_content'));
+
+// add re=noopener to all links with a target of _blank, regardless of what URL they link to throughout
+// the entire document
+bartificer.linkToolkit.noopenerFix(undefined, { ignoreLocalLinks: false });</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Nov 21 2016 01:25:20 GMT+0000 (GMT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
