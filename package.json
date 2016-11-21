@@ -1,0 +1,23 @@
+{
+  "name": "bartificer-linktoolkit",
+  "version": "1.0.0",
+  "description": "JavaScript functions for manipulating links in HTML files.",
+  "scripts": {
+    "generate-docs": "node_modules/.bin/jsdoc --configure jsdoc.conf.json",
+    "generate-docs-dev": "node_modules/.bin/jsdoc --configure jsdoc.conf.json --private --destination ./docs-dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbusschots/bartificer_linkToolkit_js.git"
+  },
+  "author": "Bart Busschots",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/bbusschots/bartificer_linkToolkit_js/issues"
+  },
+  "homepage": "https://github.com/bbusschots/bartificer_linkToolkit_js#readme",
+  "devDependencies": {
+    "jsdoc": "^3.4.3",
+    "minami": "^1.1.1"
+  }
+}
