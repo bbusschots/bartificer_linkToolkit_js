@@ -12,7 +12,15 @@ Some functions also require that [URI.js](https://medialize.github.io/URI.js/) (
 
 ## Usage
 
-To use the library, first include jQuery, then `URI.js` with its optional jQuery addon, then `bartificer.linkToolkit.js` (which you'll find in the `lib` directory in this repository).
+You can use a local copy of the API by uploading a copy of `lib/bartificer.linkToolkit.js` from this repository to your web server and including it into your pages with a `<script>` tag.
+
+-or-
+
+You can access the API directly via the RawGit CDN at the URL `https://cdn.rawgit.com/bbusschots/bartificer_linkToolkit_js/master/lib/bartificer.linkToolkit.js` as follows:
+
+```
+<script type="text/javascript" src="https://cdn.rawgit.com/bbusschots/bartificer_linkToolkit_js/master/lib/bartificer.linkToolkit.js"></script>
+```
 
 ### Example (all code within the `head` of the HTML document)
 
@@ -22,8 +30,8 @@ To use the library, first include jQuery, then `URI.js` with its optional jQuery
 <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.18.3/URI.min.js" integrity="sha256-F0EBsZw531Ic566O5qfXoMLeSRgH2lkS5GYuUn+jkiY=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.18.3/jquery.URI.min.js" integrity="sha256-oXQ7kOcuQWuS1Haoc7SRvZm/Vid3a8Kf+jAvtUSJrqE=" crossorigin="anonymous"></script>
 
-<!-- Inclide the library -->
-<script type="text/javascript" src="bartificer.linkToolkit.js"></script>
+<!-- Include the latest version of the API from the Raw Git CDN -->
+<script type="text/javascript" src="https://cdn.rawgit.com/bbusschots/bartificer_linkToolkit_js/master/lib/bartificer.linkToolkit.js"></script>
 
 <!-- Add a jQuery Document Ready Event Handler -->
 <script type="text/javascript">
