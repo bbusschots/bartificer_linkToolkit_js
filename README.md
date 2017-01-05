@@ -16,7 +16,7 @@ You can use a local copy of the API by uploading a copy of `lib/bartificer.linkT
 
 -or-
 
-You can access the API directly via the RawGit CDN as follows:
+You can access the latest version of the API directly via the RawGit CDN as follows:
 
 ```
 <script type="text/javascript" src="https://cdn.rawgit.com/bbusschots/bartificer_linkToolkit_js/master/lib/bartificer.linkToolkit.js"></script>
