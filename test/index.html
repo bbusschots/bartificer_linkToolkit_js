@@ -1,10 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>bartificer.linkToolkit.js Test Page</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>bartificer.linkToolkit.js QUnit Test Runner</title>
   
-  <!-- Load jQuery from the CDN -->
+  <!-- Load the QUnit CSS from the jQuery CDN -->
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.3.2.css" />
+  
+  <!-- Load jQuery from their CDN -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   
   <!-- Load URI.js from a CDN -->
@@ -14,45 +18,6 @@
   <!-- Load bartificer.linkToolkit.js -->
   <script type="text/javascript" src="../lib/bartificer.linkToolkit.js"></script>
   
-  <!-- Local Scripts -->
-  <script type="text/javascript">
-    // the DOM ready event handler
-    $(function(){
-    	// add click handlers to the test buttons
-    	$('#noopener_test button').click(function(){
-    		bartificer.linkToolkit.debug(true);
-    		bartificer.linkToolkit.noopenerFix(
-    			$('#noopener_test'),
-    			{
-    				subDomainsLocal: true,
-    				localDomains: ['bartb.ie']
-    			}
-    		);
-    	});
-    	$('#markExternal_test button').click(function(){
-    		bartificer.linkToolkit.debug(true);
-    		bartificer.linkToolkit.markExternal($('#markExternal_test'));
-    	});
-    	$('#autoExternalise_test button').click(function(){
-    		bartificer.linkToolkit.debug(true);
-    		bartificer.linkToolkit.autoExternalise(
-    			$('#autoExternalise_test'),
-    			{
-    				subDomainsLocal: true,
-    				localDomains: ['bartb.ie']
-    			}
-    		);
-    	});
-    	$('#externalise_test button').click(function(){
-    		bartificer.linkToolkit.debug(true);
-    		bartificer.linkToolkit.externalise(
-    			$('#externalise_test_a, #externalise_test_c'),
-    			{ searchContainers: true }
-    		);
-    	});
-    });
-  </script>
-  
   <style type="text/css">
     /* Style External link icons */
     img.bartificer-externalLink{
@@ -61,83 +26,27 @@
   </style>
 </head>
 <body>
-
-<h1>Test Page</h1>
-
-<p>This test page is designed to be served from <code>http://localhost/*</code>, if it's served from another domain it will not work correctly.</p>
-
-<section id="noopener_test">
-<h2><code>noopenerFix()</code> Test Links:</h2>
-<ul>
-  <li><a href="docs/" target="_blank">A relative link</a></li>
-  <li><a href="http://localhost/" target="_blank">An absolute link to <code>localhost</code></a></li>
-  <li><a href="http://www.localhost/" target="_blank">An absolute link to <code>www.localhost</code> (a sub-domain)</a></li>
-  <li><a href="http://bartb.ie/" target="_blank">An absolute link to <code>bartb.ie</code> (a domain listed to be skipped)</a></li>
-  <li><a href="http://www.bartificer.net/" target="_blank" class="bartificer-ignore">An absolute link to <code>www.bartbificer.net</code> (an external domain) with the class <code>bartificer-ignore</code></a></li>
-  <li><a href="http://www.bartificer.net/" target="_blank" class="bartificer-noopener-ignore">An absolute link to <code>www.bartbificer.net</code> (an external domain) with the class <code>bartificer-noopener-ignore</code></a></li>
-  <li><a href="http://www.bartificer.net/" target="_blank" rel="noopener">An absolute link to <code>www.bartbificer.net</code> (an external domain, existing <code>rel</code> attribute containing <code>noopener</code>)</a></li>
-  <li><a href="http://www.bartificer.net/" target="_blank" rel="nofollow">An absolute link to <code>www.bartbificer.net</code> (an external domain, existing <code>rel</code> attribute not containing <code>noopener</code>)</a></li>
-  <li><a href="http://www.bartificer.net/" target="_blank">An absolute link to <code>www.bartbificer.net</code> (an external domain, no existing <code>rel</code> attribute)</a></li>
-</ul>
-<p>Press the button below to run <code>bartificer.linkToolkit.noopenerFix($('#noopener_test'), {subDomainsLocal: true, localDomains: ['bartb.ie']})</code>, and watch the web console for debug output.</p>
-
-<form action="javascript:void(0);">
-<p><button>Test</button></p>
-</form>
-</section>
-
-<section id="markExternal_test">
-<h2><code>markExternal()</code> Test Links:</h2>
-<ul>
-  <li><a href="http://bartb.ie/">A link to <code>bartb.ie</code> without a <code>target</code></a></li>
-  <li><a href="http://bartb.ie/" target="_blank">A link to <code>bartb.ie</code> with a <code>target</code> of <code>_blank</code></a></li>
-  <li><a href="http://bartb.ie/" target="_blank" class="bartificer-ignore">A link to <code>bartb.ie</code> with a <code>target</code> of <code>_blank</code> and the class <code>bartificer-ignore</code></a></li>
-  <li><a href="http://bartb.ie/" target="_blank" class="bartificer-markExternal-ignore">A link to <code>bartb.ie</code> with a <code>target</code> of <code>_blank</code> and the class <code>bartificer-markExternal-ignore</code></a></li>
-</ul>
-<p>Press the button below to run <code>bartificer.linkToolkit.markExternal($('#markExternal_test'))</code>, and watch the web console for debug output.</p>
-
-<form action="javascript:void(0);">
-<p><button>Test</button></p>
-</form>
-</section>
-
-<section id="externalise_test">
-<h2><code>externalise()</code> Test Links:</h2>
-<ul>
-  <li><a href="http://bartb.ie/" id="externalise_test_a">A link to <code>bartb.ie</code> passed directly to <code>externalise()</code></a></li>
-  <li> Container Test:
-    <ul id="externalise_test_c">
-      <li><a href="http://bartificer.net/" class="bartificer-ignore">A link to <code>bartificer.net</code> with the class <code>bartificer-ignore</code> contained within a <code>ul</code> passed to <code>externalise()</code></a></li>
-      <li><a href="http://bartificer.net/" class="bartificer-externalise-ignore">A link to <code>bartificer.net</code> with the class <code>bartificer-externalise-ignore</code> contained within a <code>ul</code> passed to <code>externalise()</code></a></li>
-      <li><a href="http://bartificer.net/" class="bartificer-externalize-ignore">A link to <code>bartificer.net</code> with the class <code>bartificer-externalize-ignore</code> contained within a <code>ul</code> passed to <code>externalise()</code></a></li>
-      <li><a href="http://bartificer.net/">A link to <code>bartificer.net</code> contained within a <code>ul</code> passed to <code>externalise()</code></a></li>
-    </ul>
-  </li>
-</ul>
-<p>Press the button below to run <code>bartificer.linkToolkit.externalise($('#externalise_test_a, #externalise_test_c'), {searchContainers: true})</code>, and watch the web console for debug output.</p>
-
-<form action="javascript:void(0);">
-<p><button>Test</button></p>
-</form>
-</section>
-
-<section id="autoExternalise_test">
-<h2><code>autoExternalise()</code> Test Links:</h2>
-<ul>
-  <li><a href="docs/">A relative link</a></li>
-  <li><a href="http://localhost/">An absolute link to <code>localhost</code></a></li>
-  <li><a href="http://www.localhost/">An absolute link to <code>www.localhost</code> (a sub-domain)</a></li>
-  <li><a href="http://bartb.ie/">An absolute link to <code>bartb.ie</code> (a domain listed to be skipped)</a></li>
-  <li><a href="http://www.bartificer.net/" class="bartificer-ignore">An absolute link to <code>www.bartbificer.net</code> (an external domain) with the class <code>bartificer-ignore</code></a></li>
-  <li><a href="http://www.bartificer.net/" class="bartificer-externalise-ignore">An absolute link to <code>www.bartbificer.net</code> (an external domain) with the class <code>bartificer-externalise-ignore</code></a></li>
-  <li><a href="http://www.bartificer.net/">An absolute link to <code>www.bartbificer.net</code> (an external domain)</a></li>
-</ul>
-<p>Press the button below to run <code>bartificer.linkToolkit.autoExternalise($('#autoExternalise_test'), {subDomainsLocal: true, localDomains: ['bartb.ie']})</code>, and watch the web console for debug output.</p>
-
-<form action="javascript:void(0);">
-<p><button>Test</button></p>
-</form>
-</section>
-
+<div id="qunit"></div>
+<div id="qunit-fixture">
+  <ul>
+    <li><a href="a.html" id="rl_nt_nr">A relative link, no target, no rel</a></li>
+    <li><a href="a.html" target ="_blank" id="rl_tb_nr">A relative link, <code>target="_blank"</code>, no rel</a></li>
+    <li><a href="http://localhost/a.html" id="al_nt_nr">An absolute link to localhost, no target, no rel</a></li>
+    <li><a href="http://localhost/a.html" target="_blank" id="al_tb_nr">An absolute link to localhost, <code>target="_blank"</code>, no rel</a></li>
+    <li><a href="http://www.localhost/a.html" id="as_nt_nr">An absolute link to a subdomain of localhost, no target, no rel</a></li>
+    <li><a href="http://www.localhost/a.html" target="_blank" id="as_tb_nr">An absolute link to a subdomain of localhost, <code>target="_blank"</code>, no rel</a></li>
+    <li><a href="http://bartb.ie/a.html" id="ab_nt_nr">An absolute link to <code>bartb.ie</code>, no target, no rel</a></li>
+    <li><a href="http://bartb.ie/a.html" target="_blank" id="ab_tb_nr">An absolute link to <code>bartb.ie</code>, <code>target="_blank"</code>, no rel</a></li>
+    <li><a href="http://podfeet.com/a.html" id="ap_nt_nr">An absolute link to <code>podfeet.com</code>, no target, no rel</a></li>
+    <li><a href="http://podfeet.com/a.html" target="_blank" id="ap_tb_nr">An absolute link to <code>podfeet.com</code>, <code>target="_blank"</code>, no rel</a></li>
+    <li><a href="http://podfeet.com/a.html" target="_blank" rel="nofollow" id="ap_tb_rf">An absolute link to <code>podfeet.com</code>, <code>target="_blank"</code>, <code>rel="nofollow"</code></a></li>
+    <li><a href="http://podfeet.com/a.html" target="_blank" rel="noopener" id="ap_tb_ro">An absolute link to <code>podfeet.com</code>, <code>target="_blank"</code>, <code>rel="noopener"</code></a></li>
+    <li><a href="http://podfeet.com/a.html" target="_blank" rel="noopener nofollow" id="ap_tb_r2">An absolute link to <code>podfeet.com</code>, <code>target="_blank"</code>, <code>rel="noopener nofollow"</code></a></li>
+    <li><a href="http://podfeet.com/a.html" target="_blank" id="ap_tb_nr_ib" class="bartificer-ignore">An absolute link to <code>podfeet.com</code>, <code>target="_blank"</code>, no rel, <code>class="bartificer-ignore"</code></a></li>
+    <li><a href="http://podfeet.com/a.html" target="_blank" id="ap_tb_nr_in" class="bartificer-noopener-ignore">An absolute link to <code>podfeet.com</code>, <code>target="_blank"</code>, no rel, <code>class="bartificer-noopener-ignore"</code></a></li>
+  </ul>
+</div>
+<script src="https://code.jquery.com/qunit/qunit-2.3.2.js"></script>
+<script src="tests.js"></script>
 </body>
 </html>
