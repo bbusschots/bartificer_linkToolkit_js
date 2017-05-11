@@ -2,12 +2,22 @@
 // === Pre-flight checks ======================================================
 //
 
-// Warn if we're not being run on localhost
+// Complain if we're not being run on localhost
 QUnit.begin(function(){
     var pageUrlObj = new URI();
     if(pageUrlObj.hostname() !== 'localhost'){
         window.alert("WARNING - this test suite is designed to be run from the domain localhost, but it is currently running from the domain '" + pageUrlObj.hostname() + "'\nResults will not be accurate.");
     }
+});
+
+//
+// === General Tests ==========================================================
+//
+
+QUnit.test('namespace exists', function(a){
+    a.expect(2);
+    a.strictEqual(typeof bartificer, 'object', 'bartificer namespace exists');
+    a.strictEqual(typeof bartificer.linkToolkit, 'object', 'bartificer.linkToolkit namespace exists');
 });
 
 //
@@ -17,7 +27,12 @@ QUnit.module('isLocalUrl()', {}, function(){
     // create a short alias for the function being tested
     var isLocalUrl = bartificer.linkToolkit.isLocalUrl;
     
+    QUnit.test('function exists', function(a){
+        a.strictEqual(typeof isLocalUrl, 'function', 'has type function');
+    });
+    
     QUnit.test('default behaviour', function(a){
+        a.expect(19);
         a.equal(isLocalUrl(''), true, 'empty string is a relative URL');
         a.equal(isLocalUrl(42), true, 'a number is considered a relative URL');
         a.equal(isLocalUrl('#frag'), true, 'A URL with just a fragment is considered local');
@@ -40,11 +55,13 @@ QUnit.module('isLocalUrl()', {}, function(){
     });
     
     QUnit.test('the subDomainsLocal option', function(a){
+        a.expect(2);
         a.equal(isLocalUrl('http://www.localhost/a.html', {subDomainsLocal: true}), true, 'a subdomain of localhost is considered local when subDomainsLocal is set to true');
         a.equal(isLocalUrl('http://www.localhost/a.html', {subDomainsLocal: false}), false, 'a subdomain of localhost is considered local when subDomainsLocal is set to false');
     });
     
     QUnit.test('the localDomains option', function(a){
+        a.expect(4);
         a.equal(
             isLocalUrl('http://bartb.ie/a.html', {localDomains: ['bartb.ie']}),
             true,
@@ -72,7 +89,13 @@ QUnit.module('isLocalUrl()', {}, function(){
 // === Tests for bartificer.linkToolkit.noopenerFix() =========================
 //
 QUnit.module('noopenerFix()', {}, function(){
+    QUnit.test('function exists', function(a){
+        a.strictEqual(typeof bartificer.linkToolkit.noopenerFix, 'function', 'has type function');
+    });
+    
     QUnit.test('default options', function(a){
+        a.expect(13);
+        
         // call the function on the fixture with the default options
         bartificer.linkToolkit.noopenerFix($('#qunit-fixture'));
         
@@ -157,6 +180,8 @@ QUnit.module('noopenerFix()', {}, function(){
     });
     
     QUnit.test('option ignoreLocalLinks=false', function(a){
+        a.expect(2);
+        
         // call the function on the fixture with the ignoreLocalLinks option set to false
         bartificer.linkToolkit.noopenerFix($('#qunit-fixture'), {ignoreLocalLinks: false});
         
@@ -192,6 +217,8 @@ QUnit.module('noopenerFix()', {}, function(){
     });
     
     QUnit.test('option ignoreDomains', function(a){
+        a.expect(2);
+        
         // call the function on the fixture with the ignoreDomains option
         bartificer.linkToolkit.noopenerFix(
             $('#qunit-fixture'),
@@ -216,13 +243,20 @@ QUnit.module('noopenerFix()', {}, function(){
 // === Tests for bartificer.linkToolkit.markExternal() ========================
 //
 QUnit.module('markExternal()', {}, function(){
+    QUnit.test('function exists', function(a){
+        a.strictEqual(typeof bartificer.linkToolkit.markExternal, 'function', 'has type function');
+    });
+    
     QUnit.test('default options', function(a){
+        var ids_must_have_icon = ['rl_tb_nr', 'al_tb_nr', 'as_tb_nr', 'ab_tb_nr', 'ap_tb_nr', 'ap_tb_rf', 'ap_tb_ro', 'ap_tb_r2', 'ap_tb_nr_in'];
+        var ids_no_target = ['rl_nt_nr', 'al_nt_nr', 'as_nt_nr', 'ab_nt_nr', 'ap_nt_nr'];
+        a.expect(ids_must_have_icon.length + ids_no_target.length + 5);
+        
         // call the function on the fixture with the default options
         bartificer.linkToolkit.markExternal($('#qunit-fixture'));
         
         // make sure there was an icon added after each of the links with a target
         // of _blank that does not have one of the relevant ignore classes
-        var ids_must_have_icon = ['rl_tb_nr', 'al_tb_nr', 'as_tb_nr', 'ab_tb_nr', 'ap_tb_nr', 'ap_tb_rf', 'ap_tb_ro', 'ap_tb_r2', 'ap_tb_nr_in'];
         ids_must_have_icon.forEach(function(aId){
             var $a = $('#' + aId); // the link
             var $li = $a.parent(); // the list item containing the link
@@ -234,7 +268,6 @@ QUnit.module('markExternal()', {}, function(){
         });
         
         // make sure no icon was added after any of the links with a target of _blank
-        var ids_no_target = ['rl_nt_nr', 'al_nt_nr', 'as_nt_nr', 'ab_nt_nr', 'ap_nt_nr'];
         ids_no_target.forEach(function(aId){
             var $a = $('#' + aId); // the link
             var $li = $a.parent(); // the list item containing the link
@@ -294,6 +327,8 @@ QUnit.module('markExternal()', {}, function(){
     });
     
     QUnit.test('option iconExternal=false', function(a){
+        a.expect(2);
+        
         // call the function on the fixture with the relevant option set
         bartificer.linkToolkit.markExternal(
             $('#qunit-fixture'),
@@ -316,6 +351,8 @@ QUnit.module('markExternal()', {}, function(){
     });
     
     QUnit.test('option iconClasses', function(a){
+        a.expect(4);
+        
         // the classes to add
         var extraIconClasses = ['testc1', 'testc2', 'testc3'];
         
@@ -372,6 +409,241 @@ QUnit.module('markExternal()', {}, function(){
             $('li a + img', $('#qunit-fixture')).first().attr('title'),
             customTitleText,
             'generated icons have the expected title text'
+        );
+    });
+});
+
+//
+// === Tests for bartificer.linkToolkit.externalise() =========================
+//
+QUnit.module('externalise()', {}, function(){
+    QUnit.test('function exists', function(a){
+        a.strictEqual(typeof bartificer.linkToolkit.externalise, 'function', 'has type function');
+    });
+    
+    QUnit.test('default options', function(a){
+        // call the function on a link with no pre-existing target or rel
+        var $plainLink = $('#ab_nt_nr');
+        bartificer.linkToolkit.externalise($plainLink);
+        
+        // test the link has been altered as expected
+        a.equal($plainLink.attr('target'), '_blank', "target set to '_blank' on link without target");
+        a.equal($plainLink.attr('rel'), 'noopener', "rel set to 'noopener' on link without rel");
+        a.ok($plainLink.hasClass('bartificer-externalLink'), "class 'bartificer-externalLink' added to link");
+        var $img = $('img', $plainLink.parent());
+        a.equal($img.length, 1, 'an icon was added');
+        a.ok($img.hasClass('bartificer-externalLink'), "class 'bartificer-externalLink' added to link");
+        
+        // call the function on a link with a pre-existing target of _blank
+        // and make sure it is left un-changed
+        var $targetedLink = $('#ab_tb_nr');
+        bartificer.linkToolkit.externalise($targetedLink);
+        a.equal($targetedLink.attr('target'), '_blank', "target left as '_blank' on link with target");
+        
+        // call the function on a link with a pre-existing rel of noopener and make sure
+        // it is left un-changed
+        var $noopenerLink = $('#ap_tb_ro');
+        bartificer.linkToolkit.externalise($noopenerLink);
+        a.equal($noopenerLink.attr('rel'), 'noopener', "rel left as 'noopener' on link with initial rel of noopener");
+        
+        // call the function on a link with an existing multi-rel attribute that already
+        // contains noopener and make sure it is left un-changed
+        var $multiRelLink = $('#ap_tb_r2');
+        bartificer.linkToolkit.externalise($multiRelLink);
+        a.equal($multiRelLink.attr('rel'), 'noopener nofollow', "rel left as was on link with multiple initial rel values including noopener");
+        
+        // call the function on a link with an existing rel that is not noopener and
+        // make sure noopener is appended rather than replacing the original value
+        var $otherRelLink = $('#ap_tb_rf');
+        bartificer.linkToolkit.externalise($otherRelLink);
+        a.equal($multiRelLink.attr('rel'), 'noopener nofollow', "noopener added to existing rel  on link which had a rel that did not include noopener");
+    });
+    
+    QUnit.test('invoke on container (searchContainers=true)', function(a){
+        a.expect(4);
+        
+        // call the function on the entire fixture
+        bartificer.linkToolkit.externalise($('#qunit-fixture'), {searchContainers: true});
+        
+        // make sure all the links were externalised except those with ignore classes
+        a.equal($('a.bartificer-externalLink', $('#qunit-fixture')).length, 15, 'all links without the ignore classes were externalised');
+        
+        // make sure the links that should have been ignored, were
+        a.equal($('#ap_tb_nr_ib').hasClass('bartificer-externalLink'), false, 'link with class bartificer-ignore not externalised');
+        a.equal($('#ap_tb_nr_iz').hasClass('bartificer-externalLink'), false, 'link with class bartificer-externalize-ignore not externalised');
+        a.equal($('#ap_tb_nr_is').hasClass('bartificer-externalLink'), false, 'link with class bartificer-externalise-ignore not externalised');
+    });
+    
+    QUnit.test('option addIcon=false', function(a){
+        // call the function on a link
+        bartificer.linkToolkit.externalise($('#rl_nt_nr'), {addIcon: false});
+        
+        // make sure no icons were added
+        a.equal($('img.bartificer-externalLink', $('#qunit-fixture')).length, 0, 'no icon added');
+    });
+    
+    QUnit.test('option linkClasses', function(a){
+        a.expect(6);
+        
+        // call the function on a link with a single class specified
+        var $link1 = $('#rl_nt_nr');
+        bartificer.linkToolkit.externalise($link1, {linkClasses: 'test1'});
+        
+        // make sure the link has the expected classes
+        a.ok($link1.hasClass('test1'), 'single additional class successfully added to link');
+        a.ok($link1.hasClass('bartificer-externalLink'), 'default class added as well as single additional class');
+        
+        // call the function on another link with multiple classes specified
+        var $link2 = $('#al_nt_nr');
+        bartificer.linkToolkit.externalise($link2, {linkClasses: 'test2 test3 test4'});
+        
+        // make sure the link has the expected classes
+        a.ok($link2.hasClass('test2'), 'first of three additional class successfully added to link');
+        a.ok($link2.hasClass('test3'), 'second of three additional class successfully added to link');
+        a.ok($link2.hasClass('test4'), 'third of three additional class successfully added to link');
+        a.ok($link2.hasClass('bartificer-externalLink'), 'default class added as well as multiple additional class');
+    });
+    
+    QUnit.test('option iconSrc', function(a){
+        // a custom image URL to use for the icons
+        var customIconSrc = 'externalIcon.png'; // does not need to exist for the test to work
+        
+        // call the function on a link with the relevant option set
+        var $link = $('#rl_nt_nr');
+        bartificer.linkToolkit.externalise($link, {iconSrc: customIconSrc});
+        
+        // make sure the icon has the custom source URL
+        a.equal(
+            $('img', $link.parent()).attr('src'),
+            customIconSrc,
+            'generated icon has the expected custom source URL'
+        );
+    });
+    
+    QUnit.test('option iconExternal=false', function(a){
+        a.expect(2);
+        
+        // call the function on a link with the relevant option set
+        var $link = $('#rl_nt_nr');
+        bartificer.linkToolkit.externalise($link, {iconExternal: false});
+        
+        // make sure an icon was added inside the link
+        a.equal(
+            $('img', $link).length, // the number of images inside the link
+            1, // there should be exactly one image in the link
+            'icon added inside the link'
+        );
+        
+        // make sure no icon was added after the link
+        a.equal(
+            $('a + img', $link.parent()).length, // the number of images after link in the list item
+            0, // there should be no images after the link
+            'no icon added after the link'
+        );
+    });
+    
+    QUnit.test('option iconClasses', function(a){
+        // the classes to add
+        var extraIconClasses = ['testc1', 'testc2', 'testc3'];
+        
+        a.expect(extraIconClasses.length + 1);
+        
+        // call the function on a link
+        var $link = $('#rl_nt_nr');
+        bartificer.linkToolkit.externalise($link, {iconClasses: extraIconClasses.join(' ')});
+        
+        // make sure each of the classes was added
+        var $icon = $('a + img', $link.parent());
+        extraIconClasses.forEach(function(c){
+            a.ok(
+                $icon.is('.' + c),
+                'Genereated icon has the additonal class: ' + c
+            );
+        });
+        
+        // make sure the default class was also added
+        a.ok(
+            $icon.is('.bartificer-externalLink'),
+            'standard class added as well as extra classes'
+        );
+    });
+    
+    QUnit.test('option altText', function(a){
+        var customAltText = 'dummy alt text';
+        
+        // call the function on a link
+        var $link = $('#rl_nt_nr');
+        bartificer.linkToolkit.externalise($link, {altText: customAltText});
+        
+        // make sure the icon has the custom alt text
+        a.equal(
+            $('a + img', $link.parent()).attr('alt'),
+            customAltText,
+            'generated icon has the expected alt text'
+        );
+    });
+    
+    QUnit.test('option titleText', function(a){
+        var customTitleText = 'dummy title text';
+        
+        // call the function on a link
+        var $link = $('#rl_nt_nr');
+        bartificer.linkToolkit.externalise($link, {titleText: customTitleText});
+        
+        // make sure the icon has the custom title
+        a.equal(
+            $('a + img', $link.parent()).attr('title'),
+            customTitleText,
+            'generated icon has the expected title text'
+        );
+    });
+    
+    QUnit.test('externalize() is an alias to externalise()', function(a){
+        a.strictEqual(
+            bartificer.linkToolkit.externalise,
+            bartificer.linkToolkit.externalize,
+            'externalise & externalize are references to the same function object'
+        );
+    });
+});
+
+//
+// === Tests for bartificer.linkToolkit.autoExternalise() =====================
+//
+QUnit.module('autoExternalise()', {}, function(){
+    QUnit.test('function exists', function(a){
+        a.strictEqual(typeof bartificer.linkToolkit.autoExternalise, 'function', 'has type function');
+    });
+    
+    QUnit.test('default options', function(a){
+        // call the function on the fixture with the default options
+        bartificer.linkToolkit.autoExternalise($('#qunit-fixture'));
+        
+        var mustBeExternal = ['ab_nt_nr', 'ab_tb_nr', 'ap_nt_nr', 'ap_tb_nr', 'ap_tb_rf', 'ap_tb_ro', 'ap_tb_r2', 'ap_tb_nr_in', 'ap_tb_nr_im'];
+        var mustNotBeExternal = ['rl_nt_nr', 'rl_tb_nr', 'al_nt_nr', 'al_tb_nr', 'as_nt_nr', 'as_tb_nr', 'ap_tb_nr_ib', 'ap_tb_nr_iz', 'ap_tb_nr_is'];
+        
+        a.expect(mustBeExternal.length + mustNotBeExternal.length);
+        
+        // make sure all links that should be external are
+        mustBeExternal.forEach(function(linkId){
+            var $link = $('#' + linkId);
+            a.ok($link.hasClass('bartificer-externalLink'), $link.text() + ' was externalised');
+        });
+        
+        // make sure all links that should not be external are not
+        mustNotBeExternal.forEach(function(linkId){
+            var $link = $('#' + linkId);
+            a.ok(!$link.hasClass('bartificer-externalLink'), $link.text() + ' was not externalised');
+        });
+    });
+    
+    // TO DO - test each of the options
+    
+    QUnit.test('autoExternalize() is an alias to autoExternalise()', function(a){
+        a.strictEqual(
+            bartificer.linkToolkit.autoExternalise,
+            bartificer.linkToolkit.autoExternalize,
+            'autoExternalize & autoExternalise are references to the same function object'
         );
     });
 });
