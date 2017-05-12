@@ -351,10 +351,10 @@ QUnit.module('markExternal()', {}, function(){
     });
     
     QUnit.test('option iconClasses', function(a){
-        a.expect(4);
-        
         // the classes to add
         var extraIconClasses = ['testc1', 'testc2', 'testc3'];
+        
+        a.expect(extraIconClasses.length + 1);
         
         // call the function on the fixture with the relevant option set
         bartificer.linkToolkit.markExternal(
@@ -616,13 +616,13 @@ QUnit.module('autoExternalise()', {}, function(){
     });
     
     QUnit.test('default options', function(a){
-        // call the function on the fixture with the default options
-        bartificer.linkToolkit.autoExternalise($('#qunit-fixture'));
-        
         var mustBeExternal = ['ab_nt_nr', 'ab_tb_nr', 'ap_nt_nr', 'ap_tb_nr', 'ap_tb_rf', 'ap_tb_ro', 'ap_tb_r2', 'ap_tb_nr_in', 'ap_tb_nr_im'];
         var mustNotBeExternal = ['rl_nt_nr', 'rl_tb_nr', 'al_nt_nr', 'al_tb_nr', 'as_nt_nr', 'as_tb_nr', 'ap_tb_nr_ib', 'ap_tb_nr_iz', 'ap_tb_nr_is'];
         
         a.expect(mustBeExternal.length + mustNotBeExternal.length);
+        
+        // call the function on the fixture with the default options
+        bartificer.linkToolkit.autoExternalise($('#qunit-fixture'));
         
         // make sure all links that should be external are
         mustBeExternal.forEach(function(linkId){
@@ -637,7 +637,184 @@ QUnit.module('autoExternalise()', {}, function(){
         });
     });
     
-    // TO DO - test each of the options
+    QUnit.test('option addIcon=false', function(a){
+        console.log($('img.bartificer-externalLink', $('#qunit-fixture')).length);
+        
+        // call the function on the fixture with the appropriate option
+        bartificer.linkToolkit.autoExternalise($('#qunit-fixture'), {addIcon: false});
+        
+        // make sure no icons were added
+        a.equal($('img.bartificer-externalLink', $('#qunit-fixture')).length, 0, 'no icon added');
+    });
+    
+    QUnit.test('option linkClasses', function(a){
+        // the classes to add
+        var extraLinkClasses = ['testc1', 'testc2', 'testc3'];
+        
+        a.expect(extraLinkClasses.length + 1);
+        
+        // call the function on the fixture with the relevant option set
+        bartificer.linkToolkit.autoExternalise(
+            $('#qunit-fixture'),
+            { linkClasses: extraLinkClasses.join(' ') }
+        );
+        
+        // make sure each of the classes was added
+        var $sampleLink = $('a.bartificer-externalLink', $('#qunit-fixture')).first();
+        extraLinkClasses.forEach(function(c){
+            a.ok(
+                $sampleLink.is('.' + c),
+                'Links have the additonal class: ' + c
+            );
+        });
+        
+        // make sure the default class was also added
+        a.ok(
+            $sampleLink.is('.bartificer-externalLink'),
+            'standard class added as well as extra classes'
+        );
+    });
+    
+    QUnit.test('option subDomainsLocal=false', function(a){
+        var mustBeExternal = ['ab_nt_nr', 'ab_tb_nr', 'ap_nt_nr', 'ap_tb_nr', 'ap_tb_rf', 'ap_tb_ro', 'ap_tb_r2', 'ap_tb_nr_in', 'ap_tb_nr_im', 'as_nt_nr', 'as_tb_nr'];
+        var mustNotBeExternal = ['rl_nt_nr', 'rl_tb_nr', 'al_nt_nr', 'al_tb_nr', 'ap_tb_nr_ib', 'ap_tb_nr_iz', 'ap_tb_nr_is'];
+        
+        a.expect(mustBeExternal.length + mustNotBeExternal.length);
+        
+        // call the function on the fixture with the appropriate option set
+        bartificer.linkToolkit.autoExternalise($('#qunit-fixture'), {subDomainsLocal: false});
+        
+        // make sure all links that should be external are
+        mustBeExternal.forEach(function(linkId){
+            var $link = $('#' + linkId);
+            a.ok($link.hasClass('bartificer-externalLink'), $link.text() + ' was externalised');
+        });
+        
+        // make sure all links that should not be external are not
+        mustNotBeExternal.forEach(function(linkId){
+            var $link = $('#' + linkId);
+            a.ok(!$link.hasClass('bartificer-externalLink'), $link.text() + ' was not externalised');
+        });
+    });
+    
+    QUnit.test('option ignoreDomains', function(a){
+        a.expect(2);
+        
+        // call the function on the fixture with the ignoreDomains option
+        bartificer.linkToolkit.autoExternalise(
+            $('#qunit-fixture'),
+            { ignoreDomains: ['bartb.ie', 'podfeet.com'] }
+        );
+        
+        // make sure links to the ignored domains did not get externalised
+        a.ok(!$('#ab_tb_nr').hasClass('bartificer-externalLink'), 'link to bartb.ie ignored as expected');
+        a.ok(!$('#ap_tb_nr').hasClass('bartificer-externalLink'), 'link to podfeet.com ignored as expected');
+    });
+    
+    QUnit.test('option iconSrc', function(a){
+        // a custom image URL to use for the icons
+        var customIconSrc = 'externalIcon.png'; // does not need to exist for the test to work
+        
+        // call the function on the fixture with the relevant option set
+        bartificer.linkToolkit.autoExternalise(
+            $('#qunit-fixture'),
+            { iconSrc: customIconSrc }
+        );
+        
+        // make sure the icons have the custom source URL
+        a.equal(
+            $('li a + img', $('#qunit-fixture')).first().attr('src'),
+            customIconSrc,
+            'generated icons have the expected custom source URL'
+        );
+    });
+    
+    QUnit.test('option iconExternal=false', function(a){
+        a.expect(2);
+        
+        // call the function on the fixture with the relevant option set
+        bartificer.linkToolkit.autoExternalise(
+            $('#qunit-fixture'),
+            { iconExternal: false }
+        );
+        
+        // make sure an icon was added inside a sample link
+        var $sampleExternalisedLink = $('a.bartificer-externalLink', $('#qunit-fixture')).first();
+        a.equal(
+            $('img', $sampleExternalisedLink).length, // the number of images inside the link
+            1, // there should be exactly one image in the link
+            'icon added inside the link'
+        );
+        
+        // make sure no icon was added after the link
+        a.equal(
+            $('a + img', $sampleExternalisedLink.parent()).length, // the number of images after links in the list item
+            0, // there should be no images after the link
+            'no icon added after the link'
+        );
+    });
+    
+    QUnit.test('option iconClasses', function(a){
+        // the classes to add
+        var extraIconClasses = ['testc1', 'testc2', 'testc3'];
+        
+        a.expect(extraIconClasses.length + 1);
+        
+        // call the function on the fixture with the relevant option set
+        bartificer.linkToolkit.autoExternalise(
+            $('#qunit-fixture'),
+            { iconClasses: extraIconClasses.join(' ') }
+        );
+        
+        // make sure each of the classes was added
+        var $sampleIcon = $('li a + img', $('#qunit-fixture')).first();
+        extraIconClasses.forEach(function(c){
+            a.ok(
+                $sampleIcon.is('.' + c),
+                'Genereated icons have the additonal class: ' + c
+            );
+        });
+        
+        // make sure the default class was also added
+        a.ok(
+            $sampleIcon.is('.bartificer-externalLink'),
+            'standard class added as well as extra classes'
+        );
+    });
+    
+    QUnit.test('option altText', function(a){
+        var customAltText = 'dummy alt text';
+        
+        // call the function on the fixture with the relevant option set
+        bartificer.linkToolkit.autoExternalise(
+            $('#qunit-fixture'),
+            { altText: customAltText }
+        );
+        
+        // make sure the icons have the custom alt text
+        a.equal(
+            $('li a + img', $('#qunit-fixture')).first().attr('alt'),
+            customAltText,
+            'generated icons have the expected alt text'
+        );
+    });
+    
+    QUnit.test('option titleText', function(a){
+        var customTitleText = 'dummy title text';
+        
+        // call the function on the fixture with the relevant option set
+        bartificer.linkToolkit.autoExternalise(
+            $('#qunit-fixture'),
+            { titleText: customTitleText }
+        );
+        
+        // make sure the icons have the custom title
+        a.equal(
+            $('li a + img', $('#qunit-fixture')).first().attr('title'),
+            customTitleText,
+            'generated icons have the expected title text'
+        );
+    });
     
     QUnit.test('autoExternalize() is an alias to autoExternalise()', function(a){
         a.strictEqual(
