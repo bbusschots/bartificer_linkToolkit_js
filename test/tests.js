@@ -21,6 +21,20 @@ QUnit.test('namespace exists', function(a){
 });
 
 //
+// === Tests for bartificer.linkToolkit.version() =============================
+//
+QUnit.module('version()', {}, function(){
+    QUnit.test('function exists', function(a){
+        a.strictEqual(typeof bartificer.linkToolkit.version, 'function', 'has type function');
+    });
+    
+    QUnit.test('returns output in expected format', function(a){
+        var ver = bartificer.linkToolkit.version();
+        a.ok(String(ver).match(/^\d+[.]\d+$/));
+    });
+});
+
+//
 // === Tests for bartificer.linkToolkit.isLocalUrl() ==========================
 //
 QUnit.module('isLocalUrl()', {}, function(){
